@@ -55,15 +55,9 @@ endpoints:
             type: string
             intents: ["*"]
             description: >-
-              Downtime basis. component_status (default) counts time in partial/major outage;
-              incident_window counts each major/critical incident's whole window.
-            accepted_fields:
-              - value: component_status
-                intents: ["*"]
-                description: Time components were marked partial_outage or major_outage.
-              - value: incident_window
-                intents: ["*"]
-                description: Whole incident window, conservative upper bound.
+              Downtime basis, one of: component_status (default; time components were marked
+              partial_outage or major_outage) or incident_window (each major/critical incident's
+              whole window, a conservative upper bound).
 
 input_schema:
   type: object

@@ -17,5 +17,19 @@ on Nov 17), so the saved responses and receipts are the record.
 See [comparison/](comparison/): the #1-ranked miner was paid for an answer with no uptime, and the zk miner
 declined the request.
 
+## Registration (Nov 17, Ethereum Sepolia)
+sla-miner registered from the CLI (`cast`), registration id **5309**, intent `SLA_COMPLIANCE_GENERAL`, min price 10000 uUSDC.
+
+| Step | Tx |
+|---|---|
+| Bond approve (1 USDC, escrow token `0xcc19…Ae17`) | `0x40b4234b0d2390df61c27a4d82a4eab6a1e22bc6e6309b161a155ea1c5cbfba2` |
+| `registerMiner` | `0x4cbff2175700c9444c5c4021c63fffb5f9418c229c0749432def114bda6f4788` |
+
+YAML: `https://raw.githubusercontent.com/SATVIKsynopsis/clawback/main/sla-miner/miner.yaml`,
+sha256 `0x82dd50ae2da79e0ae5f088d55dda92e8456b4c1caf811bbb471115afe29b4857` (exact hosted bytes).
+
+Escrow funding: approve `0x3fe875db71e21a3498eb28292c9ef8a83e334a31007ded3da8bfdad3bbb85e5c`,
+deposit `0x200d03f8e69fc97e5bd7e62a09662fba8fb4f7870b3ab47be50713265a4c0b56` (2.00 USDC).
+
 ## After
-_Pending miner registration: a paid direct ask to sla-miner and a routed ask._
+_Pending activation: a paid direct ask to sla-miner and a routed ask._
