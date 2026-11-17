@@ -1,0 +1,7 @@
+target/
+.env*
+.pay/
+.vercel/
+app/data/
+evidence/
+**/*.db

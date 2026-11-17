@@ -867,32 +867,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "axum-streams"
-version = "0.24.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "49debcb7f7400a7f2c96d590795c12372f4db7ad0f518d5a02286d8c8b8c691d"
-dependencies = [
- "axum",
- "bytes",
- "futures",
- "http",
- "http-body",
- "serde",
- "serde_json",
- "tokio-stream",
-]
-
-[[package]]
 name = "base16ct"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4c7f02d4ea65f2c1853089ffd8d2787bdbc63de2f0d29dedbcf8ccdfa0ccd4cf"
-
-[[package]]
-name = "base64"
-version = "0.22.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
 
 [[package]]
 name = "base64"
@@ -1162,7 +1140,7 @@ dependencies = [
  "alloy-signer",
  "alloy-signer-local",
  "axum",
- "base64 0.23.1",
+ "base64",
  "chrono",
  "clap",
  "lettre",
@@ -1591,7 +1569,7 @@ version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f690ae2169f2ceb3f45b28b6fcd8fa16839f2f5c8818546774b9425f5f71004"
 dependencies = [
- "base64 0.23.1",
+ "base64",
  "memchr",
 ]
 
@@ -2121,7 +2099,7 @@ version = "0.1.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ddc03d96684f9226b8a787cdb71488417b53ab5ea8fdb1dac946cb9431cc8bff"
 dependencies = [
- "base64 0.23.1",
+ "base64",
  "bytes",
  "futures-channel",
  "futures-util",
@@ -2136,7 +2114,6 @@ dependencies = [
  "socket2",
  "system-configuration",
  "tokio",
- "tower-layer",
  "tower-service",
  "tracing",
  "windows-registry",
@@ -2549,7 +2526,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f2c646bd5cc763b1087b15493e29a64be6147ba8f19342004fa52048ee596eae"
 dependencies = [
  "async-trait",
- "base64 0.23.1",
+ "base64",
  "email-encoding",
  "email_address",
  "fastrand",
@@ -3249,7 +3226,7 @@ version = "0.13.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "16a1cfa75cc186dd73d5818e510e042e40927bccc9c236b061cea97e1eb08029"
 dependencies = [
- "base64 0.23.1",
+ "base64",
  "bytes",
  "encoding_rs",
  "futures-core",
@@ -3727,7 +3704,7 @@ version = "3.24.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "df9adc193c780ef8f159aee8b61e2d5801aaa555e6eb0947fe45530ec506296f"
 dependencies = [
- "base64 0.23.1",
+ "base64",
  "bs58",
  "chrono",
  "hex",
@@ -3857,10 +3834,8 @@ dependencies = [
  "serde",
  "serde_json",
  "tokio",
- "tower",
  "tracing",
  "tracing-subscriber",
- "vercel_runtime",
 ]
 
 [[package]]
@@ -4160,17 +4135,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "tokio-stream"
-version = "0.1.19"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a3d06f0b082ba57c26b79407372e57cf2a1e28124f78e9479fe80322cf53420b"
-dependencies = [
- "futures-core",
- "pin-project-lite",
- "tokio",
-]
-
-[[package]]
 name = "tokio-util"
 version = "0.7.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4179,7 +4143,6 @@ dependencies = [
  "bytes",
  "futures-core",
  "futures-sink",
- "futures-util",
  "libc",
  "pin-project-lite",
  "tokio",
@@ -4472,29 +4435,6 @@ name = "vcpkg"
 version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426"
-
-[[package]]
-name = "vercel_runtime"
-version = "2.4.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3721700ab7190d585557944a5ba789c8e81ffdb8ce049a514a27a309e138609c"
-dependencies = [
- "axum",
- "axum-streams",
- "base64 0.22.1",
- "http-body",
- "http-body-util",
- "hyper",
- "hyper-util",
- "lazy_static",
- "libc",
- "serde",
- "serde_json",
- "tokio",
- "tokio-stream",
- "tokio-util",
- "tower",
-]
 
 [[package]]
 name = "version_check"

@@ -32,15 +32,12 @@ cargo test -p sla-miner
 ```
 
 ## Deploy (Vercel, Rust runtime)
-The same axum router runs as one Vercel function (`api/sla.rs`, `vercel_runtime` + `VercelLayer`);
-`vercel.json` rewrites every path to it. Answers carry `Cache-Control: s-maxage=300` so the CDN
-caches them for 5 minutes; errors are `no-store`.
-```bash
-# Vercel project settings: Root Directory = sla-miner (include files outside root: on)
-npx vercel link            # from sla-miner/
-npx vercel deploy --prod
-npx vercel domains add sla.tracelet.xyz
-```
+The Rust builder runs `src/main.rs` in standalone-server mode (no `vercel_runtime` dependency):
+the same axum server as local/Docker, listening on `$PORT`. Answers carry
+`Cache-Control: s-maxage=300` so the CDN caches them for 5 minutes; errors are `no-store`.
+
+Import the repo in Vercel with **Root Directory = `sla-miner`** (preset: Rust), then add the
+domain `sla.tracelet.xyz`. Every push to `main` redeploys.
 Fallback host: `render.yaml` (Docker, free tier sleeps when idle).
 
 ## Docker

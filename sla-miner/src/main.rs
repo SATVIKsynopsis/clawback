@@ -1,4 +1,5 @@
-//! Local / Docker server. On Vercel the same router runs from api/sla.rs.
+//! sla-miner HTTP server. Binds 0.0.0.0:$PORT (default 8080). On Vercel, the Rust builder runs
+//! this binary in standalone-server mode and sets PORT.
 
 #[tokio::main]
 async fn main() {

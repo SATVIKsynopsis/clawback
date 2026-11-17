@@ -1,4 +1,4 @@
-//! HTTP layer: axum router shared by the local server (src/main.rs) and the Vercel function (api/sla.rs).
+//! HTTP layer: the axum router served by src/main.rs (locally, in Docker, and on Vercel).
 
 use crate::{calc, period, providers, statuspage};
 
@@ -246,7 +246,7 @@ pub fn http_client() -> reqwest::Client {
         .expect("http client")
 }
 
-/// All routes. `/api/sla` is an alias so the app also answers at the Vercel function's own path.
+/// All routes. `/api/sla` is kept as an alias of `/sla`.
 pub fn router() -> Router {
     let state = Arc::new(AppState { sp: statuspage::Client::new(http_client()) });
     Router::new()
