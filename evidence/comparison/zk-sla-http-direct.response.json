@@ -1,0 +1,1 @@
+{"error":"upstream error 422: {\"intent\":\"SLA_COMPLIANCE_GENERAL\",\"service\":\"GitHub\",\"period\":\"last 30 days\",\"sla_target_pct\":null,\"compliant\":null,\"verdict\":\"Insufficient information\",\"error\":\"unsupported_measurement\",\"summary\":\"N...","intent":"SLA_COMPLIANCE_GENERAL","miner_id":"781347"}

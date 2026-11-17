@@ -251,6 +251,15 @@ mod tests {
     }
 
     #[test]
+    fn rejects_real_routed_answer_2026_11_17() {
+        // evidence/comparison/routed.response.json: top-ranked miner, charged $0.01, no numbers.
+        let body: Value = serde_json::from_str(include_str!("../../evidence/comparison/routed.response.json")).unwrap();
+        let why = validate("GitHub", &body).unwrap_err();
+        assert!(why.iter().any(|w| w.contains("uptime_pct missing")), "{why:?}");
+        assert!(why.iter().any(|w| w.contains("field_status not ok") && w.contains("rejected")), "{why:?}");
+    }
+
+    #[test]
     fn rejects_wrong_service_range_and_field_status() {
         assert!(validate("GitHub", &sla_answer("Cloudflare", 100.0, 100.0)).unwrap_err()[0].contains("Cloudflare"));
         let mut b = sla_answer("GitHub", 120.0, 99.9);
