@@ -11,7 +11,7 @@ description: >-
   outage, and compares it to the provider's published SLA target. Not a current-status check
   or homepage probe. Optional component scope (e.g. "GitHub Actions"). Returns the outage
   windows and sources as evidence.
-base_url: https://sla.tracelet.xyz
+base_url: https://clawback-eta.vercel.app
 
 rate_limit_per_sec: 5
 circuit_threshold: 5
