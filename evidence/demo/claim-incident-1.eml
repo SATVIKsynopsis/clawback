@@ -1,0 +1,849 @@
+From: "Ops Team" <ops@example.com>
+To: "GitHub Support" <support@github.example>
+Subject: SLA service credit request: GitHub (last 30 days, measured uptime
+ 99.2053%)
+MIME-Version: 1.0
+Date: Tue, 17 Nov 2026 17:29:05 +0000
+Content-Type: multipart/mixed;
+ boundary="W1DzeCCPtGxG2K4w0iqtMAqlezffTer7gB6Y1q8h"
+
+--W1DzeCCPtGxG2K4w0iqtMAqlezffTer7gB6Y1q8h
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+Hello GitHub Support,
+
+We request a service credit under your published SLA
+  (https://github.com/customer-terms/github-online-services-sla) for
+  GitHub.
+
+Account: acme-corp (Enterprise Cloud)
+Period measured:      last 30 days
+SLA commitment:       99.9% (calendar quarter; covers GitHub Actions,
+  Enterprise Cloud, Packages)
+Measured uptime:      99.2053% (independent, see evidence 2)
+Credit tier:          99% <= uptime 99.2053% < 99.5% -> 10% of fees
+Credit requested:     10% of applicable fees ($2100.00) = $210.00
+
+EVIDENCE
+
+1. Our monitoring: Checkout -> GitHub API (demo) (http://mock:8091/health)
+   Observed uptime during the incident window: 16.67% (incident opened
+     2026-11-17T17:28:56+00:00)
+   - down 2026-11-17T17:28:16+00:00 -> 2026-11-17T17:29:06+00:00
+     (0.8333333333333334 min)
+
+2. Independent verification via Telegraph (intent SLA_COMPLIANCE_GENERAL),
+   computed from your own public status page incident history:
+   Result:       GitHub uptime 99.2053% vs target 99.9% -> NOT met
+   Answered by:  Statuspage SLA Auditor (miner 7410311, direct ask)
+   Receipt hash:
+     0x8e8f47ead1cbf5207c0b6039b725c4dbb8e9c09f59a2e631b6a5cd046c20320f
+   Receipt/signal can be looked up at
+     https://devnode.telegraphprotocol.com/engine/v1/signal/<signal hash>
+   Signal hash:
+     0xb5f58066167ebbf83099cfe3dc30da3e0f2cdfd5c73542b2f46f2ec06ea30e36
+
+   Answers we rejected during validation (not relied on):
+   - GitHub Components SLA (routed): result.uptime_pct missing or not a
+     number; result.sla_target_pct missing or not a number;
+     result.compliant missing or not a bool; field_status not ok:
+     compliant="rejected", period="missing", sla_target_pct="missing",
+     uptime_pct="missing"
+     receipt
+       0x883c40590151d2677b6fc30f3e65b83b8fde6b2405106d9618e89f8a399610b8
+
+Claim process: Written request to GitHub Support within 30 days of the end
+  of the calendar quarter
+Full Telegraph responses and receipts are attached
+  (telegraph-evidence.json).
+
+Regards,
+Ops Team <ops@example.com>
+
+--W1DzeCCPtGxG2K4w0iqtMAqlezffTer7gB6Y1q8h
+Content-Disposition: attachment; filename="telegraph-evidence.json"
+Content-Type: application/json
+Content-Transfer-Encoding: quoted-printable
+
+{
+  "incident": {
+    "claim_path": null,
+    "closed_at": null,
+    "credit_usd": null,
+    "detail": "buying independent SLA proof via Telegraph",
+    "id": 1,
+    "independent_uptime_pct": 99.2053,
+    "monitor": "Checkout -> GitHub API (demo)",
+    "observed_uptime_pct": 16.67,
+    "opened_at": 1794936536,
+    "period": "last 30 days",
+    "service": "GitHub",
+    "sla_target_pct": 99.9,
+    "status": "proving"
+  },
+  "observed_outage_windows": [
+    [
+      1794936496,
+      1794936546
+    ]
+  ],
+  "proof": {
+    "amount_uusdc": 10000,
+    "compliant": false,
+    "miner_id": "7410311",
+    "miner_name": "Statuspage SLA Auditor",
+    "mode": "direct",
+    "outages": null,
+    "period": "last 30 days",
+    "purchase_id": 2,
+    "receipt_hash": "0x8e8f47ead1cbf5207c0b6039b725c4dbb8e9c09f59a2e631b6a5=
+cd046c20320f",
+    "service": "GitHub",
+    "signal_hash": "0xb5f58066167ebbf83099cfe3dc30da3e0f2cdfd5c73542b2f46f2=
+ec06ea30e36",
+    "sla_source": null,
+    "sla_target_pct": 99.9,
+    "uptime_pct": 99.2053
+  },
+  "telegraph_purchases": [
+    {
+      "amount_uusdc": 10000,
+      "id": 1,
+      "incident_id": 1,
+      "intent": "SLA_COMPLIANCE_GENERAL",
+      "miner_id": "103010",
+      "miner_name": "GitHub Components SLA",
+      "mode": "routed",
+      "receipt": {
+        "amount_uusdc": "10000",
+        "chain": "telegraph",
+        "epoch_id": 4,
+        "intent": "SLA_COMPLIANCE_GENERAL",
+        "miner": "3933",
+        "payer": "0xfa40e197f3064473adc024f654313bdb3b29127b",
+        "rail": "escrow",
+        "receipt_hash": "0x883c40590151d2677b6fc30f3e65b83b8fde6b2405106d96=
+18e89f8a399610b8",
+        "settlement": "epoch",
+        "timestamp": 1794936541
+      },
+      "receipt_hash": "0x883c40590151d2677b6fc30f3e65b83b8fde6b2405106d9618=
+e89f8a399610b8",
+      "reject_reasons": [
+        "result.uptime_pct missing or not a number",
+        "result.sla_target_pct missing or not a number",
+        "result.compliant missing or not a bool",
+        "field_status not ok: compliant=3D\"rejected\", period=3D\"missing\=
+", sla_target_pct=3D\"missing\", uptime_pct=3D\"missing\""
+      ],
+      "response": {
+        "cost_usd": 0.01,
+        "duration_ms": 338,
+        "endpoint": "/query",
+        "field_status": {
+          "compliant": "rejected",
+          "period": "missing",
+          "service": "ok",
+          "sla_target_pct": "missing",
+          "uptime_pct": "missing"
+        },
+        "findings": {
+          "items": [
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2017-01-31T20:05:05.370Z",
+              "id": "fd:1",
+              "name": "created_at",
+              "path": "$.components[0].created_at",
+              "status": "reported",
+              "type": "date",
+              "value": "2017-01-31T20:05:05.370Z"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "Performance of git clones, pulls, pushes, and as=
+sociated operations",
+              "id": "fd:2",
+              "name": "description",
+              "path": "$.components[0].description",
+              "status": "reported",
+              "type": "string",
+              "value": "Performance of git clones, pulls, pushes, and assoc=
+iated operations"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "false",
+              "id": "fd:3",
+              "name": "group",
+              "path": "$.components[0].group",
+              "status": "reported",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "8l4ygp009s5s",
+              "id": "fd:4",
+              "name": "id",
+              "path": "$.components[0].id",
+              "status": "reported",
+              "type": "string",
+              "value": "8l4ygp009s5s"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "Git Operations",
+              "id": "fd:5",
+              "name": "name",
+              "path": "$.components[0].name",
+              "status": "reported",
+              "type": "string",
+              "value": "Git Operations"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "false",
+              "id": "fd:6",
+              "name": "only_show_if_degraded",
+              "path": "$.components[0].only_show_if_degraded",
+              "status": "reported",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "kctbh9vrtdwd",
+              "id": "fd:7",
+              "name": "page_id",
+              "path": "$.components[0].page_id",
+              "status": "reported",
+              "type": "string",
+              "value": "kctbh9vrtdwd"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "1",
+              "id": "fd:8",
+              "name": "position",
+              "path": "$.components[0].position",
+              "status": "reported",
+              "type": "integer",
+              "value": 1
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "true",
+              "id": "fd:9",
+              "name": "showcase",
+              "path": "$.components[0].showcase",
+              "status": "reported",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "operational",
+              "id": "fd:10",
+              "name": "status",
+              "path": "$.components[0].status",
+              "status": "reported",
+              "type": "string",
+              "value": "operational"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2026-11-04T11:30:42.148Z",
+              "id": "fd:11",
+              "name": "updated_at",
+              "path": "$.components[0].updated_at",
+              "status": "reported",
+              "type": "date",
+              "value": "2026-11-04T11:30:42.148Z"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "Orchestration and Compute for GitHub Codespaces",
+              "id": "fd:12",
+              "name": "description",
+              "path": "$.components[10].description",
+              "status": "reported",
+              "type": "string",
+              "value": "Orchestration and Compute for GitHub Codespaces"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2019-11-13T18:00:24.256Z",
+              "id": "fd:13",
+              "name": "created_at",
+              "path": "$.components[1].created_at",
+              "status": "reported",
+              "type": "date",
+              "value": "2019-11-13T18:00:24.256Z"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "Real time HTTP callbacks of user-generated and s=
+ystem events",
+              "id": "fd:14",
+              "name": "description",
+              "path": "$.components[1].description",
+              "status": "reported",
+              "type": "string",
+              "value": "Real time HTTP callbacks of user-generated and syst=
+em events"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "4230lsnqdsld",
+              "id": "fd:15",
+              "name": "id",
+              "path": "$.components[1].id",
+              "status": "reported",
+              "type": "string",
+              "value": "4230lsnqdsld"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "Webhooks",
+              "id": "fd:16",
+              "name": "name",
+              "path": "$.components[1].name",
+              "status": "reported",
+              "type": "string",
+              "value": "Webhooks"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2",
+              "id": "fd:17",
+              "name": "position",
+              "path": "$.components[1].position",
+              "status": "reported",
+              "type": "integer",
+              "value": 2
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2026-11-12T19:20:14.124Z",
+              "id": "fd:18",
+              "name": "updated_at",
+              "path": "$.components[1].updated_at",
+              "status": "reported",
+              "type": "date",
+              "value": "2026-11-12T19:20:14.124Z"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2018-12-05T19:39:40.838Z",
+              "id": "fd:19",
+              "name": "created_at",
+              "path": "$.components[2].created_at",
+              "status": "reported",
+              "type": "date",
+              "value": "2018-12-05T19:39:40.838Z"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "0l2p9nhqnxpd",
+              "id": "fd:20",
+              "name": "id",
+              "path": "$.components[2].id",
+              "status": "reported",
+              "type": "string",
+              "value": "0l2p9nhqnxpd"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "Visit www.githubstatus.com for more information",
+              "id": "fd:21",
+              "name": "name",
+              "path": "$.components[2].name",
+              "status": "reported",
+              "type": "string",
+              "value": "Visit www.githubstatus.com for more information"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "3",
+              "id": "fd:22",
+              "name": "position",
+              "path": "$.components[2].position",
+              "status": "reported",
+              "type": "integer",
+              "value": 3
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "false",
+              "id": "fd:23",
+              "name": "showcase",
+              "path": "$.components[2].showcase",
+              "status": "reported",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2025-03-19T05:00:21.309Z",
+              "id": "fd:24",
+              "name": "updated_at",
+              "path": "$.components[2].updated_at",
+              "status": "reported",
+              "type": "date",
+              "value": "2025-03-19T05:00:21.309Z"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2017-01-31T20:01:46.621Z",
+              "id": "fd:25",
+              "name": "created_at",
+              "path": "$.components[3].created_at",
+              "status": "reported",
+              "type": "date",
+              "value": "2017-01-31T20:01:46.621Z"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "Requests for GitHub APIs",
+              "id": "fd:26",
+              "name": "description",
+              "path": "$.components[3].description",
+              "status": "reported",
+              "type": "string",
+              "value": "Requests for GitHub APIs"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "brv1bkgrwx7q",
+              "id": "fd:27",
+              "name": "id",
+              "path": "$.components[3].id",
+              "status": "reported",
+              "type": "string",
+              "value": "brv1bkgrwx7q"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "API Requests",
+              "id": "fd:28",
+              "name": "name",
+              "path": "$.components[3].name",
+              "status": "reported",
+              "type": "string",
+              "value": "API Requests"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "4",
+              "id": "fd:29",
+              "name": "position",
+              "path": "$.components[3].position",
+              "status": "reported",
+              "type": "integer",
+              "value": 4
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2026-11-08T11:56:20.652Z",
+              "id": "fd:30",
+              "name": "updated_at",
+              "path": "$.components[3].updated_at",
+              "status": "reported",
+              "type": "date",
+              "value": "2026-11-08T11:56:20.652Z"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2017-01-31T20:01:46.638Z",
+              "id": "fd:31",
+              "name": "created_at",
+              "path": "$.components[4].created_at",
+              "status": "reported",
+              "type": "date",
+              "value": "2017-01-31T20:01:46.638Z"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "Requests for Issues on GitHub.com",
+              "id": "fd:32",
+              "name": "description",
+              "path": "$.components[4].description",
+              "status": "reported",
+              "type": "string",
+              "value": "Requests for Issues on GitHub.com"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "kr09ddfgbfsf",
+              "id": "fd:33",
+              "name": "id",
+              "path": "$.components[4].id",
+              "status": "reported",
+              "type": "string",
+              "value": "kr09ddfgbfsf"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "Issues",
+              "id": "fd:34",
+              "name": "name",
+              "path": "$.components[4].name",
+              "status": "reported",
+              "type": "string",
+              "value": "Issues"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "5",
+              "id": "fd:35",
+              "name": "position",
+              "path": "$.components[4].position",
+              "status": "reported",
+              "type": "integer",
+              "value": 5
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2026-11-06T00:06:11.679Z",
+              "id": "fd:36",
+              "name": "updated_at",
+              "path": "$.components[4].updated_at",
+              "status": "reported",
+              "type": "date",
+              "value": "2026-11-06T00:06:11.679Z"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2020-09-02T15:39:06.329Z",
+              "id": "fd:37",
+              "name": "created_at",
+              "path": "$.components[5].created_at",
+              "status": "reported",
+              "type": "date",
+              "value": "2020-09-02T15:39:06.329Z"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "Requests for Pull Requests on GitHub.com",
+              "id": "fd:38",
+              "name": "description",
+              "path": "$.components[5].description",
+              "status": "reported",
+              "type": "string",
+              "value": "Requests for Pull Requests on GitHub.com"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "hhtssxt0f5v2",
+              "id": "fd:39",
+              "name": "id",
+              "path": "$.components[5].id",
+              "status": "reported",
+              "type": "string",
+              "value": "hhtssxt0f5v2"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "Pull Requests",
+              "id": "fd:40",
+              "name": "name",
+              "path": "$.components[5].name",
+              "status": "reported",
+              "type": "string",
+              "value": "Pull Requests"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "6",
+              "id": "fd:41",
+              "name": "position",
+              "path": "$.components[5].position",
+              "status": "reported",
+              "type": "integer",
+              "value": 6
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2026-11-16T16:07:32.311Z",
+              "id": "fd:42",
+              "name": "updated_at",
+              "path": "$.components[5].updated_at",
+              "status": "reported",
+              "type": "date",
+              "value": "2026-11-16T16:07:32.311Z"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "2019-11-13T18:02:19.432Z",
+              "id": "fd:43",
+              "name": "created_at",
+              "path": "$.components[6].created_at",
+              "status": "reported",
+              "type": "date",
+              "value": "2019-11-13T18:02:19.432Z"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "Workflows, Compute and Orchestration for GitHub =
+Actions",
+              "id": "fd:44",
+              "name": "description",
+              "path": "$.components[6].description",
+              "status": "reported",
+              "type": "string",
+              "value": "Workflows, Compute and Orchestration for GitHub Act=
+ions"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "br0l2tvcx85d",
+              "id": "fd:45",
+              "name": "id",
+              "path": "$.components[6].id",
+              "status": "reported",
+              "type": "string",
+              "value": "br0l2tvcx85d"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "API requests and webhook delivery for GitHub Pac=
+kages",
+              "id": "fd:46",
+              "name": "description",
+              "path": "$.components[7].description",
+              "status": "reported",
+              "type": "string",
+              "value": "API requests and webhook delivery for GitHub Packag=
+es"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "GitHub",
+              "id": "fd:47",
+              "name": "name",
+              "path": "$.page.name",
+              "status": "reported",
+              "type": "string",
+              "value": "GitHub"
+            },
+            {
+              "basis": "provider_reported",
+              "delivery": "specialist",
+              "evidence": "https://www.githubstatus.com",
+              "id": "fd:48",
+              "name": "url",
+              "path": "$.page.url",
+              "status": "reported",
+              "type": "url",
+              "value": "https://www.githubstatus.com"
+            }
+          ],
+          "omitted": 35,
+          "raw_sha256": "40d20eab0fa4bdae66c67d2fb3d38d24665ea5e374e9f4b489=
+9854cd7760d36d",
+          "truncated": true,
+          "version": "findings/v1"
+        },
+        "format_version": 4,
+        "fulfillment": {
+          "cost_usd_total": 0.01,
+          "delivery": "specialist",
+          "fault": "provider",
+          "missing_ids": [
+            "f:period",
+            "f:sla_target_pct",
+            "f:uptime_pct"
+          ],
+          "missing_reasons": {
+            "f:period": "provider_omitted",
+            "f:sla_target_pct": "provider_omitted",
+            "f:uptime_pct": "provider_omitted"
+          },
+          "provenance": {
+            "service": {
+              "intent": "SLA_COMPLIANCE_GENERAL",
+              "miner": "sla-gh-comp"
+            }
+          },
+          "requirements_hash": "0x75243c4ef90082d02a791cf5f69b45cdeb7bc265d=
+2ad03334798e026f52bc707",
+          "served_rank": 1,
+          "status": "partial",
+          "stopped": "no_budget",
+          "supplementary_calls": 0,
+          "valid_ids": [
+            "f:service"
+          ],
+          "verifier_version": "fulfillment/v1:de97a6016a3cea1",
+          "violated_ids": [
+            "f:compliant"
+          ]
+        },
+        "input": {
+          "period": "last 30 days",
+          "service": "GitHub"
+        },
+        "input_evidence": [
+          {
+            "basis": "caller",
+            "param": "service",
+            "state": "resolved",
+            "value": "GitHub"
+          },
+          {
+            "basis": "caller",
+            "param": "period",
+            "state": "resolved",
+            "value": "last 30 days"
+          }
+        ],
+        "input_schema_version": 4,
+        "intent": "SLA_COMPLIANCE_GENERAL",
+        "intent_version": 1,
+        "miner_id": "103010",
+        "miner_name": "GitHub Components SLA",
+        "reasoning": "Intent: intent given by the caller\nMiner: The user i=
+s asking for SLA compliance information for GitHub over the last 30 days. T=
+he miner 'GitHub Components SLA' has an endpoint '/query' that serves the '=
+SLA_COMPLIANCE' intent. The question explicitly states the intent and provi=
+des the necessary parameters ('service' and 'period') which are included in=
+ the request body. The method is GET as specified in the miner config.",
+        "result": {
+          "compliant": null,
+          "period": null,
+          "service": "GitHub",
+          "sla_target_pct": null,
+          "uptime_pct": null
+        },
+        "result_shape": "intent",
+        "signal_hash": "0x0af25a331db5a2f862b9012558892941895b2d3913edf41d7=
+c7be27bc359dd80",
+        "timestamp": "2026-11-17T17:28:59.429029681Z"
+      },
+      "service": "GitHub",
+      "signal_hash": "0x0af25a331db5a2f862b9012558892941895b2d3913edf41d7c7=
+be27bc359dd80",
+      "ts": 1794936541,
+      "valid": false
+    },
+    {
+      "amount_uusdc": 10000,
+      "id": 2,
+      "incident_id": 1,
+      "intent": "SLA_COMPLIANCE_GENERAL",
+      "miner_id": "7410311",
+      "miner_name": "Statuspage SLA Auditor",
+      "mode": "direct",
+      "receipt": {
+        "amount_uusdc": "10000",
+        "chain": "telegraph",
+        "epoch_id": 4,
+        "intent": "SLA_COMPLIANCE_GENERAL",
+        "miner": "5310",
+        "payer": "0xfa40e197f3064473adc024f654313bdb3b29127b",
+        "rail": "escrow",
+        "receipt_hash": "0x8e8f47ead1cbf5207c0b6039b725c4dbb8e9c09f59a2e631=
+b6a5cd046c20320f",
+        "settlement": "epoch",
+        "timestamp": 1794936545
+      },
+      "receipt_hash": "0x8e8f47ead1cbf5207c0b6039b725c4dbb8e9c09f59a2e631b6=
+a5cd046c20320f",
+      "reject_reasons": [],
+      "response": {
+        "cost_usd": 0.01,
+        "duration_ms": 299,
+        "endpoint": "/sla",
+        "field_status": {
+          "compliant": "ok",
+          "period": "ok",
+          "service": "ok",
+          "sla_target_pct": "ok",
+          "uptime_pct": "ok"
+        },
+        "format_version": 4,
+        "input": {
+          "period": "last 30 days",
+          "service": "GitHub"
+        },
+        "input_schema_version": 4,
+        "intent": "SLA_COMPLIANCE_GENERAL",
+        "intent_version": 1,
+        "miner_id": "7410311",
+        "miner_name": "Statuspage SLA Auditor",
+        "reasoning": "Intent: miner sla-miner given by the caller\nMiner: T=
+he user is asking about SLA compliance for GitHub over the last 30 days. Th=
+e Statuspage SLA Auditor miner has an endpoint '/sla' that serves the SLA_C=
+OMPLIANCE_GENERAL intent. This endpoint accepts 'service' and 'period' as p=
+arameters, which directly correspond to the provided parameters from the us=
+er's request.",
+        "result": {
+          "compliant": false,
+          "period": "last 30 days",
+          "service": "GitHub",
+          "sla_target_pct": 99.9,
+          "uptime_pct": 99.2053
+        },
+        "result_shape": "intent",
+        "signal_hash": "0xb5f58066167ebbf83099cfe3dc30da3e0f2cdfd5c73542b2f=
+46f2ec06ea30e36",
+        "timestamp": "2026-11-17T17:29:04.112499919Z"
+      },
+      "service": "GitHub",
+      "signal_hash": "0xb5f58066167ebbf83099cfe3dc30da3e0f2cdfd5c73542b2f46=
+f2ec06ea30e36",
+      "ts": 1794936545,
+      "valid": true
+    }
+  ]
+}
+--W1DzeCCPtGxG2K4w0iqtMAqlezffTer7gB6Y1q8h--

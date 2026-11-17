@@ -1,0 +1,13 @@
+HTTP/2 200 
+date: Tue, 17 Nov 2026 17:25:36 GMT
+content-type: application/json; charset=utf-8
+server: cloudflare
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+vary: Origin
+vary: Origin
+x-payment-response: eyJyZWNlaXB0X2hhc2giOiIweGJjYTA3ZTQ5NWYyYzAzNDEwZTM2ZWNiNTMxMmM1ZDQ4ZmM4MzBjNDBmMzg0ZGZlNWVhM2VmZDUwNmQ0OTIwMWMiLCJyYWlsIjoiZXNjcm93IiwicGF5ZXIiOiIweGZhNDBlMTk3ZjMwNjQ0NzNhZGMwMjRmNjU0MzEzYmRiM2IyOTEyN2IiLCJtaW5lciI6IjM5MzMiLCJpbnRlbnQiOiJTTEFfQ09NUExJQU5DRV9HRU5FUkFMIiwiYW1vdW50X3V1c2RjIjoiMTAwMDAiLCJlcG9jaF9pZCI6NCwic2V0dGxlbWVudCI6ImVwb2NoIiwiY2hhaW4iOiJ0ZWxlZ3JhcGgiLCJ0aW1lc3RhbXAiOjE3OTQ5MzYzMzZ9
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=AttM8XMv28nbvFdkVnAnPfWKFDBiIPkYsoJGaqSg5kYRBW5f3MhVkL%2BFwVOepn%2FH3FMHu9pWZRd56Uly%2B0rcL3vP3pr95KlhReZBsov5PQrYzCaKe%2BQB%2BNgPPcXM%2FlK3CtGwNBnFXgw6VUrF7xukgw%3D%3D"}]}
+cf-ray: a5c06f61da9f54ec-DEL
+alt-svc: h3=":443"; ma=86400
+

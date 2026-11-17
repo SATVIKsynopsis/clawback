@@ -25,11 +25,24 @@ sla-miner registered from the CLI (`cast`), registration id **5309**, intent `SL
 | Bond approve (1 USDC, escrow token `0xcc19…Ae17`) | `0x40b4234b0d2390df61c27a4d82a4eab6a1e22bc6e6309b161a155ea1c5cbfba2` |
 | `registerMiner` | `0x4cbff2175700c9444c5c4021c63fffb5f9418c229c0749432def114bda6f4788` |
 
-YAML: `https://raw.githubusercontent.com/SATVIKsynopsis/clawback/main/sla-miner/miner.yaml`,
-sha256 `0x82dd50ae2da79e0ae5f088d55dda92e8456b4c1caf811bbb471115afe29b4857` (exact hosted bytes).
+First submission (YAML sha256 `0x82dd50ae…4857`) was **rejected** by the node's schema check:
+`endpoints.0.params.query.optional.3.accepted_fields: Invalid type. Expected: object, given: array`
+(the array form follows the docs' example; the live schema differs). Fixed by dropping the optional
+`accepted_fields` and re-submitting:
+
+| Step | Tx |
+|---|---|
+| `updateMiner(5309, …)` | `0xb3201526c3c60012ff72fdc69ba82544d8e3bb56c7065276a380d145e63bbe24` |
+
+YAML (commit-pinned so the hash can never drift):
+`https://raw.githubusercontent.com/SATVIKsynopsis/clawback/21626d82a63630d0fad7042570fe70847027e10f/sla-miner/miner.yaml`,
+sha256 `0x74916fa12518f45418d3dc8bdb974060c6310b4f7558da148ca3883f61755e3d`.
 
 Escrow funding: approve `0x3fe875db71e21a3498eb28292c9ef8a83e334a31007ded3da8bfdad3bbb85e5c`,
 deposit `0x200d03f8e69fc97e5bd7e62a09662fba8fb4f7870b3ab47be50713265a4c0b56` (2.00 USDC).
 
+Activated as registration **5310** (`activation_status: active`, 2026-11-17T17:24:50Z).
+
 ## After
-_Pending activation: a paid direct ask to sla-miner and a routed ask._
+See [after/](after/): a direct ask to sla-miner returns GitHub 99.2053% vs 99.9% with **every field_status ok**;
+the routed ask still went to the incumbent, which was paid for an empty answer.

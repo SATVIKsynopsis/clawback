@@ -1,0 +1,12 @@
+{
+  "receipt_hash": "0xf2e071fb9a7a9ca8662d71ca7a567e7703c2f54ff409dd8f7eb55564d6c4f0c3",
+  "rail": "escrow",
+  "payer": "0xfa40e197f3064473adc024f654313bdb3b29127b",
+  "miner": "5310",
+  "intent": "SLA_COMPLIANCE_GENERAL",
+  "amount_uusdc": "10000",
+  "epoch_id": 4,
+  "settlement": "epoch",
+  "chain": "telegraph",
+  "timestamp": 1794936322
+}

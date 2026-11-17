@@ -1,0 +1,132 @@
+{
+  "budget": {
+    "per_day_uusdc": 200000,
+    "per_incident_uusdc": 30000,
+    "spent_today_uusdc": 20000
+  },
+  "events": [
+    {
+      "incident_id": 1,
+      "level": "info",
+      "message": "claim drafted for $210.00 (10% of $2100.00) based on independent uptime 99.2053%: data/claims/incident-1.eml",
+      "ts": 1794936545
+    },
+    {
+      "incident_id": 1,
+      "level": "info",
+      "message": "validated proof from Statuspage SLA Auditor (direct): GitHub uptime 99.2053% vs target 99.9% over last 30 days, receipt 0x8e8f47ead1cbf5207c0b6039b725c4dbb8e9c09f59a2e631b6a5cd046c20320f",
+      "ts": 1794936545
+    },
+    {
+      "incident_id": 1,
+      "level": "warn",
+      "message": "rejected routed answer from GitHub Components SLA (paid 10000 uUSDC): result.uptime_pct missing or not a number; result.sla_target_pct missing or not a number; result.compliant missing or not a bool; field_status not ok: compliant=\"rejected\", period=\"missing\", sla_target_pct=\"missing\", uptime_pct=\"missing\"",
+      "ts": 1794936541
+    },
+    {
+      "incident_id": 1,
+      "level": "warn",
+      "message": "Checkout -> GitHub API (demo): observed uptime 16.67% over last 120s is below SLA 99.9%; incident opened",
+      "ts": 1794936536
+    }
+  ],
+  "fallback_miner": "7410311",
+  "incidents": [
+    {
+      "incident": {
+        "claim_path": "data/claims/incident-1.eml",
+        "closed_at": null,
+        "credit_usd": 210.0,
+        "detail": "claim drafted for $210.00 (10% of $2100.00) based on independent uptime 99.2053%: data/claims/incident-1.eml",
+        "id": 1,
+        "independent_uptime_pct": 99.2053,
+        "monitor": "Checkout -> GitHub API (demo)",
+        "observed_uptime_pct": 14.29,
+        "opened_at": 1794936536,
+        "period": "last 30 days",
+        "service": "GitHub",
+        "sla_target_pct": 99.9,
+        "status": "claimed"
+      },
+      "purchases": [
+        {
+          "amount_uusdc": 10000,
+          "id": 1,
+          "miner_id": "103010",
+          "miner_name": "GitHub Components SLA",
+          "mode": "routed",
+          "receipt_hash": "0x883c40590151d2677b6fc30f3e65b83b8fde6b2405106d9618e89f8a399610b8",
+          "reject_reasons": [
+            "result.uptime_pct missing or not a number",
+            "result.sla_target_pct missing or not a number",
+            "result.compliant missing or not a bool",
+            "field_status not ok: compliant=\"rejected\", period=\"missing\", sla_target_pct=\"missing\", uptime_pct=\"missing\""
+          ],
+          "result": {
+            "compliant": null,
+            "period": null,
+            "service": "GitHub",
+            "sla_target_pct": null,
+            "uptime_pct": null
+          },
+          "signal_hash": "0x0af25a331db5a2f862b9012558892941895b2d3913edf41d7c7be27bc359dd80",
+          "ts": 1794936541,
+          "valid": false
+        },
+        {
+          "amount_uusdc": 10000,
+          "id": 2,
+          "miner_id": "7410311",
+          "miner_name": "Statuspage SLA Auditor",
+          "mode": "direct",
+          "receipt_hash": "0x8e8f47ead1cbf5207c0b6039b725c4dbb8e9c09f59a2e631b6a5cd046c20320f",
+          "reject_reasons": [],
+          "result": {
+            "compliant": false,
+            "period": "last 30 days",
+            "service": "GitHub",
+            "sla_target_pct": 99.9,
+            "uptime_pct": 99.2053
+          },
+          "signal_hash": "0xb5f58066167ebbf83099cfe3dc30da3e0f2cdfd5c73542b2f46f2ec06ea30e36",
+          "ts": 1794936545,
+          "valid": true
+        }
+      ],
+      "spent_uusdc": 20000
+    }
+  ],
+  "monitors": [
+    {
+      "breach_below_pct": 99.9,
+      "last_ok": false,
+      "last_status": 503,
+      "name": "Checkout -> GitHub API (demo)",
+      "observed_uptime_pct": 14.29,
+      "period": "last 30 days",
+      "recent": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "samples": 7,
+      "service": "GitHub",
+      "url": "http://mock:8091/health",
+      "window_secs": 120
+    }
+  ],
+  "node": "https://devnode.telegraphprotocol.com",
+  "totals": {
+    "credit_claimed_usd": 210.0,
+    "purchases": 2,
+    "ratio": 10500.0,
+    "rejected": 1,
+    "spent_usd": 0.02,
+    "spent_uusdc": 20000
+  },
+  "wallet": "0xfa40e197f3064473adc024f654313bdb3b29127b"
+}

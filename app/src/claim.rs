@@ -109,14 +109,14 @@ pub fn render(cfg: &Config, inc: &Incident, m: &MonitorCfg, proof: &SlaProof, wi
     let _ = writeln!(b, "1. Our monitoring: {} ({})", m.name, m.url);
     let _ = writeln!(b, "   Observed uptime during the incident window: {}% (incident opened {})", inc.observed_uptime_pct, iso(inc.opened_at));
     for (s, e) in windows {
-        let _ = writeln!(b, "   - down {} -> {} ({} min)", iso(*s), iso(*e), (e - s) as f64 / 60.0);
+        let _ = writeln!(b, "   - down {} -> {} ({:.1} min)", iso(*s), iso(*e), (e - s) as f64 / 60.0);
     }
     let _ = writeln!(b, "\n2. Independent verification via Telegraph (intent SLA_COMPLIANCE_GENERAL),");
     let _ = writeln!(b, "   computed from your own public status page incident history:");
     let _ = writeln!(b, "   Result:       {} uptime {}% vs target {}% -> {}", proof.service, proof.uptime_pct, proof.sla_target_pct, if proof.compliant { "met" } else { "NOT met" });
     let _ = writeln!(b, "   Answered by:  {} (miner {}, {} ask)", proof.miner_name, proof.miner_id, proof.mode);
     let _ = writeln!(b, "   Receipt hash:\n     {}", proof.receipt_hash);
-    let _ = writeln!(b, "   Receipt/signal can be looked up at {node}/engine/v1/signal/<signal hash>");
+    let _ = writeln!(b, "   The signal can be looked up at {node}/engine/v1/signal/<signal hash>");
     let _ = writeln!(b, "   Signal hash:\n     {}", proof.signal_hash);
     if let Some(src) = &proof.sla_source {
         let _ = writeln!(b, "   SLA source:   {src}");
