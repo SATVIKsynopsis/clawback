@@ -1,0 +1,50 @@
+Payment amount: 10000 uUSDC
+Payment recipient: 0x3624eb012b5e998bb57b6be6c9cfc9c4bc5eb99b
+
+===== RESPONSE =====
+{
+  "miner_id": "103003",
+  "miner_name": "Cloudflare Status SLA",
+  "endpoint": "/query",
+  "result": {
+    "page": {
+      "id": "yh6f0r4529hb",
+      "name": "Cloudflare Status",
+      "time_zone": "Etc/UTC",
+      "updated_at": "2026-08-27T00:00:00.000Z",
+      "url": "https://www.cloudflarestatus.com"
+    },
+    "status": {
+      "description": "Partial System Outage",
+      "indicator": "major"
+    }
+  },
+  "result_shape": "raw",
+  "shape_error": "no_fields_found",
+  "format_version": 4,
+  "input": {
+    "service": "GitHub",
+    "period": "last 30 days"
+  },
+  "input_schema_version": 4,
+  "cost_usd": 0.01,
+  "duration_ms": 391,
+  "timestamp": "2026-10-31T19:49:21.218806664Z",
+  "reasoning": "Intent: intent given by the caller\nMiner: The user is asking for SLA compliance information for a specific service and period. The Cloudflare Status SLA miner has an endpoint that serves the SLA_COMPLIANCE intent, which matches the fixed intent for this request. The parameters provided in the question are directly mapped to the query parameters for this endpoint.",
+  "intent": "SLA_COMPLIANCE_GENERAL",
+  "signal_hash": "0x5f42b81de2751c943948f9c9c117ff5d6b4598f2ea8f34486dc5f3022d2fcd52"
+}
+
+===== PAYMENT RECEIPT =====
+{
+  "receipt_hash": "0x9a853e3f1f35cce953ba0f9d55835f417f98a3af5d9f92198e99be7a091d4698",
+  "rail": "escrow",
+  "payer": "0xfa40e197f3064473adc024f654313bdb3b29127b",
+  "miner": "3929",
+  "intent": "SLA_COMPLIANCE_GENERAL",
+  "amount_uusdc": "10000",
+  "epoch_id": 1946,
+  "settlement": "epoch",
+  "chain": "telegraph",
+  "timestamp": 1793476161
+}

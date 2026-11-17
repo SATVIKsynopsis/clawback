@@ -1,0 +1,17 @@
+# secrets — never commit
+.env*
+*.key
+*.pem
+keystore*/
+
+# build
+/target
+**/target
+
+# scratch output from scripts/pay.sh
+/.pay/
+/challenge.json
+/headers.txt
+/response.json
+
+.DS_Store

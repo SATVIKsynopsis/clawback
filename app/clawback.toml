@@ -1,0 +1,43 @@
+# Clawback demo config. Secrets come from the environment (PRIVATE_KEY, SMTP password), never this file.
+# Testnet only: Ethereum Sepolia, Circle test USDC.
+
+[telegraph]
+node = "https://devnode.telegraphprotocol.com"
+diamond = "0x72a70e949362670Bf8bceAd24eFC5b8f950aa08b"   # only payTo we will sign for
+network = "eip155:11155111"
+fallback_miner = "7410311"      # sla-miner, used only if the routed answer fails validation
+timeout_secs = 20
+max_price_uusdc = 50000         # refuse any single answer above $0.05
+
+[budget]
+per_incident_uusdc = 30000      # at most $0.03 of proof per incident (routed + one retry)
+per_day_uusdc = 200000          # $0.20/day
+
+[watcher]
+interval_secs = 10
+db_path = "data/clawback.db"
+
+[dashboard]
+bind = "0.0.0.0:8090"
+
+[claim]
+out_dir = "data/claims"
+from = "Ops Team <ops@example.com>"
+# [claim.smtp]                  # optional; without it, claims are written as .eml files
+# host = "smtp.example.com"
+# port = 587
+# username = "ops@example.com"
+# password_env = "SMTP_PASSWORD"
+
+# The demo maps a mock endpoint to "our GitHub dependency". Make it fail and Clawback asks
+# Telegraph whether GitHub itself missed its SLA over the period.
+[[monitor]]
+name = "Checkout -> GitHub API (demo)"
+url = "http://mock:8091/health"
+provider = "GitHub"
+period = "last 30 days"
+window_secs = 120               # observed-uptime window
+min_samples = 6
+fees_usd = 2100.0               # GitHub fees for the SLA period (credit base)
+claim_to = "GitHub Support <support@github.example>"
+account_ref = "acme-corp (Enterprise Cloud)"

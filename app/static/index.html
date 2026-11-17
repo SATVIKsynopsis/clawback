@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clawback</title>
+<style>
+:root {
+  --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1d1b; --muted: #6b6b66; --line: #e4e3df;
+  --ok: #1f7a4d; --bad: #b42318; --warn: #a15c07; --accent: #2c4bd6; --chip: #efeeea;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #141413; --panel: #1d1d1b; --ink: #ecebe7; --muted: #9a9993; --line: #2e2d2a;
+          --ok: #4cc38a; --bad: #f97066; --warn: #f5b041; --accent: #8098ff; --chip: #262523; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, sans-serif; }
+main { max-width: 1080px; margin: 0 auto; padding: 24px 16px 64px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; margin-bottom: 20px; }
+h1 { font-size: 22px; margin: 0; letter-spacing: -0.01em; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 28px 0 10px; font-weight: 600; }
+.sub { color: var(--muted); font-size: 13px; }
+.mono { font-family: var(--mono); font-size: 12.5px; word-break: break-all; }
+.grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.stat .v { font-size: 26px; font-weight: 650; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.stat .k { color: var(--muted); font-size: 12.5px; }
+.hero .v { color: var(--accent); }
+.bars { display: flex; gap: 2px; margin-top: 8px; }
+.bars i { flex: 1; height: 16px; border-radius: 2px; background: var(--ok); opacity: .85; }
+.bars i.down { background: var(--bad); }
+.chip { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; background: var(--chip); font-weight: 600; }
+.s-claimed { color: var(--ok); } .s-unproven, .s-claim_failed { color: var(--bad); }
+.s-proving, .s-open { color: var(--warn); } .s-not_confirmed, .s-no_credit { color: var(--muted); }
+.inc { margin-bottom: 12px; }
+.inc-head { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }
+.inc-head b { font-size: 16px; }
+.detail { margin: 8px 0; color: var(--muted); font-size: 13.5px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { text-align: left; padding: 6px 8px; border-top: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 12px; }
+.scroll { overflow-x: auto; }
+.ok { color: var(--ok); } .bad { color: var(--bad); }
+a { color: var(--accent); }
+.events div { padding: 4px 0; border-top: 1px solid var(--line); font-size: 13px; }
+.events .t { color: var(--muted); font-family: var(--mono); font-size: 12px; margin-right: 8px; }
+.empty { color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Clawback</h1>
+    <span class="sub">SLA breach &rarr; independent proof via Telegraph &rarr; credit claim</span>
+    <span class="sub mono" id="wallet"></span>
+  </header>
+
+  <div class="grid" id="stats"></div>
+
+  <h2>Monitors</h2>
+  <div class="grid" id="monitors"></div>
+
+  <h2>Incidents</h2>
+  <div id="incidents"></div>
+
+  <h2>Activity</h2>
+  <div class="card events" id="events"></div>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const usd = (n) => "$" + (n ?? 0).toFixed(2);
+const t = (ts) => new Date(ts * 1000).toISOString().replace("T", " ").slice(0, 19) + "Z";
+const short = (h) => (h && h.length > 18 ? h.slice(0, 10) + "…" + h.slice(-6) : h || "–");
+
+function stats(s) {
+  const tot = s.totals;
+  const ratio = tot.ratio == null ? "–" : Math.round(tot.ratio).toLocaleString() + "×";
+  $("stats").innerHTML = [
+    ["hero", "Credit claimed vs intelligence spent", ratio],
+    ["", "Credit claimed", usd(tot.credit_claimed_usd)],
+    ["", "Spent on Telegraph proofs", usd(tot.spent_usd) + ` <span class="sub">(${tot.purchases} buys, ${tot.rejected} rejected)</span>`],
+    ["", "Budget today", `${(s.budget.spent_today_uusdc / 1e6).toFixed(2)} / ${(s.budget.per_day_uusdc / 1e6).toFixed(2)} USDC`],
+  ].map(([c, k, v]) => `<div class="card stat ${c}"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
+  $("wallet").textContent = s.wallet ? "payer " + s.wallet : "no wallet: proofs disabled";
+}
+
+function monitors(s) {
+  $("monitors").innerHTML = s.monitors.map((m) => {
+    const up = m.observed_uptime_pct;
+    const cls = up == null ? "" : up >= m.breach_below_pct ? "ok" : "bad";
+    return `<div class="card"><b>${esc(m.name)}</b><div class="sub mono">${esc(m.url)}</div>
+      <div class="stat"><div class="v ${cls}">${up == null ? "–" : up + "%"}</div>
+      <div class="k">observed over ${m.window_secs}s (${m.samples} probes) · breach below ${m.breach_below_pct}%</div></div>
+      <div class="bars">${m.recent.map((ok) => `<i class="${ok ? "" : "down"}"></i>`).join("")}</div>
+      <div class="sub" style="margin-top:6px">proof asks: <b>${esc(m.service)}</b>, ${esc(m.period)}</div></div>`;
+  }).join("") || `<div class="empty">No monitors configured.</div>`;
+}
+
+function incidents(s) {
+  $("incidents").innerHTML = s.incidents.map(({ incident: i, purchases, spent_uusdc }) => `
+    <div class="card inc">
+      <div class="inc-head"><b>#${i.id} ${esc(i.service)}</b>
+        <span class="chip s-${i.status}">${i.status.replace("_", " ")}</span>
+        <span class="sub">opened ${t(i.opened_at)}${i.closed_at ? " · recovered " + t(i.closed_at) : ""}</span></div>
+      <div class="grid" style="margin-top:10px">
+        <div class="stat"><div class="k">Observed uptime (ours)</div><div class="v">${i.observed_uptime_pct}%</div></div>
+        <div class="stat"><div class="k">Independent uptime (${esc(i.period)})</div><div class="v">${i.independent_uptime_pct ?? "–"}${i.independent_uptime_pct != null ? "%" : ""}</div>
+          <div class="k">${i.sla_target_pct != null ? "SLA target " + i.sla_target_pct + "%" : ""}</div></div>
+        <div class="stat"><div class="k">Credit owed</div><div class="v">${i.credit_usd != null ? usd(i.credit_usd) : "–"}</div></div>
+        <div class="stat"><div class="k">Cost of proof</div><div class="v">${usd(spent_uusdc / 1e6)}</div></div>
+      </div>
+      <div class="detail">${esc(i.detail)}${i.claim_path ? ` · <a href="/claims/${i.id}" target="_blank">view claim email</a>` : ""}</div>
+      ${purchases.length ? `<div class="scroll"><table><tr><th>Ask</th><th>Miner</th><th>Answer</th><th>Cost</th><th>Receipt</th><th>Signal</th></tr>
+        ${purchases.map((p) => `<tr><td>${p.mode}</td><td>${esc(p.miner_name)} <span class="sub">${esc(p.miner_id)}</span></td>
+          <td class="${p.valid ? "ok" : "bad"}">${p.valid ? "valid" + (p.result ? ` · ${esc(p.result.uptime_pct)}%` : "") : "rejected: " + esc(p.reject_reasons.join("; "))}</td>
+          <td>${(p.amount_uusdc / 1e6).toFixed(2)}</td><td class="mono" title="${esc(p.receipt_hash)}">${esc(short(p.receipt_hash))}</td>
+          <td class="mono" title="${esc(p.signal_hash)}">${esc(short(p.signal_hash))}</td></tr>`).join("")}</table></div>` : ""}
+    </div>`).join("") || `<div class="empty">No incidents yet. Make a monitored endpoint fail to see the flow.</div>`;
+}
+
+function events(s) {
+  $("events").innerHTML = s.events.map((e) =>
+    `<div><span class="t">${t(e.ts)}</span><span class="${e.level === "error" ? "bad" : ""}">${esc(e.message)}</span></div>`).join("")
+    || `<div class="empty">Quiet so far.</div>`;
+}
+
+async function refresh() {
+  try {
+    const s = await (await fetch("/api/state")).json();
+    stats(s); monitors(s); incidents(s); events(s);
+  } catch (e) { $("wallet").textContent = "dashboard offline: " + e; }
+}
+refresh();
+setInterval(refresh, 3000);
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+version: "1"
+kind: miner
+id: 7410311
+slug: sla-miner
+protocol: generic
+name: Statuspage SLA Auditor
+description: >-
+  Historical SLA compliance for named cloud providers (GitHub, Cloudflare, Vercel, Twilio,
+  DigitalOcean, Discord). Computes uptime over a past window (1-90 days) from the provider's own
+  public Statuspage incident history, counting only time components were in partial or major
+  outage, and compares it to the provider's published SLA target. Not a current-status check
+  or homepage probe. Optional component scope (e.g. "GitHub Actions"). Returns the outage
+  windows and sources as evidence.
+base_url: https://sla.tracelet.xyz
+
+rate_limit_per_sec: 5
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+endpoints:
+  - path: /sla
+    external_path: /sla
+    method: GET
+    description: >-
+      Uptime percentage of a cloud provider over a past period, computed from its public
+      status-page incident history, with its published SLA target and whether it was met.
+    intents: [SLA_COMPLIANCE_GENERAL]
+    params:
+      query:
+        required:
+          - name: service
+            type: string
+            intents: ["*"]
+            description: >-
+              Provider name: GitHub, Cloudflare, Vercel, Twilio, DigitalOcean or Discord
+              (aliases like "gh", "github.com" work). May include a component, e.g. "GitHub Actions".
+        optional:
+          - name: period
+            type: string
+            intents: ["*"]
+            description: >-
+              Past window as text, e.g. "last 30 days", "last week", "past 2 months", "30d".
+              1 to 90 days. Defaults to last 30 days.
+          - name: days
+            type: integer
+            intents: ["*"]
+            description: "Window length in days, 1 to 90. Overrides period if both are given."
+          - name: component
+            type: string
+            intents: ["*"]
+            description: >-
+              Only count outages of status-page components whose name contains this text,
+              e.g. "Actions", "Git Operations", "Pull Requests".
+          - name: basis
+            type: string
+            intents: ["*"]
+            description: >-
+              Downtime basis. component_status (default) counts time in partial/major outage;
+              incident_window counts each major/critical incident's whole window.
+            accepted_fields:
+              - value: component_status
+                intents: ["*"]
+                description: Time components were marked partial_outage or major_outage.
+              - value: incident_window
+                intents: ["*"]
+                description: Whole incident window, conservative upper bound.
+
+input_schema:
+  type: object
+  required: [service]
+  properties:
+    service: { type: string, description: "Provider name, optionally with a component" }
+    period: { type: string, description: "Past window, e.g. last 30 days" }
+
+output_schema:
+  type: object
+  required: [service, uptime_pct, sla_target_pct, compliant, period]
+  properties:
+    service: { type: string }
+    uptime_pct: { type: number, description: "Percent, 0-100" }
+    sla_target_pct: { type: number, description: "Percent, from the provider's published SLA" }
+    compliant: { type: boolean }
+    period: { type: string, description: "Normalised window, e.g. last 30 days" }
+    downtime_minutes: { type: number }
+    incidents_counted: { type: integer }
+    outages: { type: array }
+    coverage_complete: { type: boolean }
+    sla_published: { type: boolean }
+    sla_source: { type: string }
+    source: { type: string }
+    method: { type: string }
+
+intent_mapping:
+  SLA_COMPLIANCE_GENERAL:
+    endpoint: /sla
+    input:
+      service:
+        from: service
+        how: >-
+          Pass the provider name as given (GitHub, Cloudflare, Vercel, Twilio, DigitalOcean,
+          Discord). Keep a product/component suffix such as "GitHub Actions".
+      period:
+        from: period
+        how: "Pass the period text unchanged, e.g. 'last 30 days'."
+    output:
+      service: { path: service }
+      uptime_pct: { path: uptime_pct, unit: percent }
+      sla_target_pct: { path: sla_target_pct, unit: percent }
+      compliant: { path: compliant }
+      period: { path: period }
+
+semantics:
+  supported_intents:
+    - SLA_COMPLIANCE_GENERAL
+
+limitations:
+  - code: MAX_WINDOW_DAYS
+    message: Windows longer than 90 days are clamped to 90 days
+    param: days
+    property: value
+    value_num: 90
+    operator: lte
+  - code: RATE_LIMIT
+    message: At most 300 requests per minute
+    property: rate
+    value_num: 300
+    window_seconds: 60
+
+errors:
+  message_path: error
+  code_path: code
+
+docs:
+  repository: https://github.com/SATVIKsynopsis/clawback
+  documentation: https://github.com/SATVIKsynopsis/clawback/tree/main/sla-miner

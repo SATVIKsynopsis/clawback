@@ -1,0 +1,24 @@
+# docker compose up --build   -> dashboard http://localhost:8090, mock http://localhost:8091
+# Make the mock fail:  curl -X POST localhost:8091/fail
+# PRIVATE_KEY is read from your shell or ./.env (never baked into the image). Without it,
+# breaches are detected but no proof is bought and no claim is filed.
+services:
+  mock:
+    build: { context: ., dockerfile: app/Dockerfile }
+    command: ["mock", "--bind", "0.0.0.0:8091"]
+    ports: ["8091:8091"]
+
+  clawback:
+    build: { context: ., dockerfile: app/Dockerfile }
+    command: ["run", "--config", "/app/clawback.toml"]
+    depends_on: [mock]
+    ports: ["8090:8090"]
+    environment:
+      PRIVATE_KEY: ${PRIVATE_KEY:-}
+      CLAWBACK_BUDGET_PER_INCIDENT_UUSDC: ${CLAWBACK_BUDGET_PER_INCIDENT_UUSDC:-}
+      CLAWBACK_BUDGET_PER_DAY_UUSDC: ${CLAWBACK_BUDGET_PER_DAY_UUSDC:-}
+    volumes:
+      - clawback-data:/app/data
+
+volumes:
+  clawback-data:

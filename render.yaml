@@ -1,0 +1,12 @@
+# Render Blueprint: deploys sla-miner from the monorepo subfolder.
+services:
+  - type: web
+    name: sla-miner
+    runtime: docker
+    plan: free            # FALLBACK host only (primary: Vercel). Sleeps after 15 min idle.
+    dockerfilePath: ./sla-miner/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    buildFilter:
+      paths: ["sla-miner/**", "Cargo.toml", "Cargo.lock"]
